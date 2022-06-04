@@ -25,9 +25,6 @@ foreach ($column_sets as $key => $column) {
     }
 }
 
-var_dump($epsilon);
-var_dump($gamma);
-
 $total = (bindec($epsilon) * bindec($gamma));
 
 echo $total;
