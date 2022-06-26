@@ -23,6 +23,6 @@ foreach ($events as $key => $event) {
     }
 }
 
-$total = ($depth*$hor_pos);
+$total = ($depth * $hor_pos);
 
 echo $total;
