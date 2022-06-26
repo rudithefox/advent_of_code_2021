@@ -16,7 +16,6 @@ function getOxygen()
     $column = 0;
     while (count($binaries) > 1) {
         $freqs = array_count_values($column_sets[$column]);
-        // this needs to be changed to include the if equal dfeault stuff
         $common = ($freqs[1] >= $freqs[0] ? 1 : 0);
         foreach ($column_sets[$column] as $key => $value) {
             if ($value != $common) {
@@ -50,7 +49,6 @@ function getCO2()
     $column = 0;
     while (count($binaries) > 1) {
         $freqs = array_count_values($column_sets[$column]);
-        // this needs to be changed to include the if equal dfeault stuff
         $uncommon = ($freqs[0] <= $freqs[1] ? 0 : 1);
 
         foreach ($column_sets[$column] as $key => $value) {

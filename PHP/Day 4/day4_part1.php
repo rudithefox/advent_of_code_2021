@@ -58,14 +58,12 @@ function calculateScore($mark_map, $board_map, $final_number)
     echo "Final score: " . ($unmarked * $final_number);
 }
 
-# Work in progress
 $file = file_get_contents(__DIR__ . "/input.txt");
 $boards = explode("\n\n", $file);
 
 $sequence = array_shift($boards);
 $sequence = explode(',', $sequence);
 
-//var_dump($board_map);
 $sequence_num = 0;
 $win = false;
 $mark = [];
