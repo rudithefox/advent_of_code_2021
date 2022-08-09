@@ -33,7 +33,8 @@ function winCheck($map, $num, $row_key)
     $horizontal_win = array_filter($map, function ($row) {
         return (count($row) == 5 ? true : false);
     });
-    if ($horizontal_win) {
+
+    if (!empty($horizontal_win)) {
         return [true, $map, $num];
     }
 }
@@ -66,7 +67,6 @@ $sequence = array_shift($boards);
 $sequence = explode(',', $sequence);
 
 $sequence_num = 0;
-$win = false;
 $mark = [];
 
 $board_map = createMap($boards);
@@ -74,15 +74,31 @@ $board_map = createMap($boards);
 while ($sequence_num < count($sequence)) {
     $num = $sequence[$sequence_num];
     foreach ($board_map as $board_key => $board) {
+        $remove = false;
+        $last_win = false;
+        $last_num;
         foreach ($board as $row_key => $row) {
             $return = array_search($num, $row, true);
             if ($return === 0 or $return) {
                 $mark[$board_key][$row_key][$return] = $row[$return];
-                $win = winCheck($mark[$board_key], $num, $row_key);
-                if (isset($win[0]) && $win[0]) {
-                    exit(calculateScore($win[1], $board_map[$board_key], $num));
+                $win_check = winCheck($mark[$board_key], $num, $row_key);
+                if (isset($win_check[0]) && $win_check[0]) {
+                    $remove = true;
+
+                    if (count($boards) == 1) {
+                        $last_win = true;
+                        $last_num = $num;
+                    }
                 }
             }
+        }
+        if ($last_win) {
+            exit(calculateScore($mark[$board_key], $board_map[$board_key], $last_num));
+        }
+        if ($remove) {
+            unset($boards[$board_key]);
+            unset($mark[$board_key]);
+            unset($board_map[$board_key]);
         }
     }
     $sequence_num++;
