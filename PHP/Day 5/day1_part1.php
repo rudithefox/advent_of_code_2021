@@ -3,27 +3,43 @@
 // Gets the full ranges of numbers we need to consider & marks hits.
 function drawAndMark($set, $hits)
 {
-    // Check if the line is vertical or horizontal
-    if ($set[0][0] == $set[1][0] || $set[0][1] == $set[1][1]) {
+    // Make sure our set doesn't have any spaces
+    $set[0][0] = (int) $set[0][0];
+    $set[1][0] = (int) $set[1][0];
+    $set[0][1] = (int) $set[0][1];
+    $set[1][1] = (int) $set[1][1];
 
-        if ($set[0][0] == $set[1][0]) {
+    // Check if the line is vertical or horizontal before continuing
+    if ($set[0][0] === $set[1][0] || $set[0][1] === $set[1][1]) {
+
+        if ($set[0][0] === $set[1][0]) {
+            // Get a range of points to mark & mark them
             $move = range($set[0][1], $set[1][1]);
-
+            foreach ($move as $key => $position) {
+                $hits[$set[1][0]][$position] = (isset($hits[$set[1][0]][$position]) ? $hits[$set[1][0]][$position] + 1 : 1);
+            }
         } else {
+            // Get a range of points to mark & mark them
             $move = range($set[0][0], $set[1][0]);
             foreach ($move as $key => $position) {
-                $hits[$position][$set[0][0]] = (isset($hits[$position][$set[0][0]]) ? $hits[$position][$set[0][0]] + 1 : 1);
+                $hits[$position][$set[0][1]] = (isset($hits[$position][$set[0][1]]) ? $hits[$position][$set[0][1]] + 1 : 1);
             }
         }
-
-        return $hits;
-
     }
+    return $hits;
 }
 
-// Returns points where there are $num amount of lines
-function getOccurrances($num)
+// Returns number of points that have more than, or equal to, $num amount of intersects
+function getOccurrances($hits, $num)
 {
+    $occurrance = 0;
+    foreach ($hits as $key_1 => $value_1) {
+        foreach ($value_1 as $key_2 => $value_2) {
+            ($value_2 >= $num ? $occurrance++ : null);
+        }
+    }
+
+    return $occurrance;
 }
 
 $hits = [];
@@ -31,11 +47,7 @@ $hits = [];
 $file = file_get_contents(__DIR__ . "/input.txt");
 $lines = explode("\n", $file);
 
-// Assign a number to each point
-$numbers = range(1, (1000 * 1000));
-$map = array_chunk($numbers, 1000, false);
-
-// Go through each line, put the sets into arrays &
+// Go through each line, put the sets into arrays & draw lines. 
 foreach ($lines as $lines_key => $line) {
     $rule = explode('->', $line);
     $start_pos = explode(',', $rule[0]);
@@ -43,4 +55,6 @@ foreach ($lines as $lines_key => $line) {
     $hits = drawAndMark([$start_pos, $end_pos], $hits);
 }
 
-var_dump($hits);
+$occurrance = getOccurrances($hits, 2);
+
+echo $occurrance;
