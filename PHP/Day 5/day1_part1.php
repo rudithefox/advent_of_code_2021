@@ -1,6 +1,6 @@
 <?php
 
-// Gets the full ranges of numbers we need to consider & marks them
+// Gets the full ranges of numbers we need to consider & marks hits.
 function drawAndMark($set, $hits)
 {
     // Check if the line is vertical or horizontal
@@ -15,6 +15,8 @@ function drawAndMark($set, $hits)
                 $hits[$position][$set[0][0]] = (isset($hits[$position][$set[0][0]]) ? $hits[$position][$set[0][0]] + 1 : 1);
             }
         }
+
+        return $hits;
 
     }
 }
@@ -38,7 +40,7 @@ foreach ($lines as $lines_key => $line) {
     $rule = explode('->', $line);
     $start_pos = explode(',', $rule[0]);
     $end_pos = explode(',', $rule[1]);
-    drawAndMark([$start_pos, $end_pos], $hits);
+    $hits = drawAndMark([$start_pos, $end_pos], $hits);
 }
 
 var_dump($hits);
