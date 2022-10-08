@@ -1,6 +1,6 @@
 <?php
 
-// Get input & seperate by new line
+// Get input & seperate by comma
 $file = file_get_contents(__DIR__ . "/input.txt");
 $crab_subs = explode(",", $file);
 
