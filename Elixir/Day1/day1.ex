@@ -24,10 +24,10 @@ defmodule Sonar do
   def increase([head | tail], accumulator, _list_count) do
     # If the next entry is larger than the current head, increase accumulator & feed new list count to increase/3
     if Integer.parse(hd(tail)) > Integer.parse(head) do
-      IO.inspect("increase")
+      # Increased
       increase(tail, accumulator + 1, Enum.count(tail))
     else
-      IO.inspect("decrease")
+      # Decreased
       increase(tail, accumulator, Enum.count(tail))
     end
   end
