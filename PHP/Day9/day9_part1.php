@@ -11,7 +11,7 @@ function scoreCalc($low_points)
     return $sum;
 }
 
-// Get input & seperate by new line
+// Get input & separate by new line
 $file = file_get_contents(__DIR__ . "/input.txt");
 $lines = explode("\n", $file);
 
@@ -22,8 +22,8 @@ $sets = array_map(function ($line) {
 
 // Perform a check on each number of each line 
 $low_points = [];
-foreach ($sets as $line_key => $line) {
-    foreach ($line as $num_key => $number) {
+foreach ($sets as $line_key => $line_arr) {
+    foreach ($line_arr as $num_key => $number) {
         $comparisons = [];
         // Set the other potential comparisons
         (isset($sets[$line_key - 1][$num_key]) ? $comparisons[] = (int) $sets[$line_key - 1][$num_key] : false); // Above, same pos

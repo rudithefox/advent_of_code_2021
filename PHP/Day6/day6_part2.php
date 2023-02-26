@@ -25,7 +25,7 @@ function nextDay($fish_frequency)
     return $fish_frequency;
 }
 
-// Get input & seperate by new line
+// Get input & separate by new line
 $file = file_get_contents(__DIR__ . "/input.txt");
 $fish_frequency = array_count_values(explode(",", $file)); // Get the frequency of fish with x amount of days left
 

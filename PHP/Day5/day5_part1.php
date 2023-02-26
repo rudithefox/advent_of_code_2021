@@ -30,20 +30,20 @@ function drawAndMark($set, $hits)
 }
 
 // Returns number of points that have more than, or equal to, $num amount of intersects
-function getOccurrances($hits, $num)
+function getOccurrences($hits, $num)
 {
-    $occurrance = 0;
+    $occurrence = 0;
     foreach ($hits as $key_1 => $value_1) {
         foreach ($value_1 as $key_2 => $value_2) {
-            ($value_2 >= $num ? $occurrance++ : null);
+            ($value_2 >= $num ? $occurrence++ : null);
         }
     }
 
-    return $occurrance;
+    return $occurrence;
 }
 
 $hits = [];
-// Get input & seperate by new line
+// Get input & separate by new line
 $file = file_get_contents(__DIR__ . "/input.txt");
 $lines = explode("\n", $file);
 
@@ -55,6 +55,6 @@ foreach ($lines as $lines_key => $line) {
     $hits = drawAndMark([$start_pos, $end_pos], $hits);
 }
 
-$occurrance = getOccurrances($hits, 2);
+$occurrence = getOccurrences($hits, 2);
 
 echo $occurrance;

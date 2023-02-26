@@ -8,7 +8,7 @@ $digit_count = [
     8 => 7
 ];
 
-// Get input & seperate by new line
+// Get input & separate by new line
 $file = file_get_contents(__DIR__ . "/input.txt");
 $lines = explode("\n", $file);
 
