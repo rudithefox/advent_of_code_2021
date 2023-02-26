@@ -26,13 +26,13 @@ foreach ($lines as $key => $line) {
     $expect = [];
     $chars = str_split($line);
     foreach ($chars as $key => $char) {
-        if (in_array($char, array_keys($char_legend))) {
+        if (in_array($char, array_keys($char_legend))) { // If we find an opening tag, adds its closing tag to the array of expected chars.
             $sequence .= $char;
             $expect[] = $char_legend[$char];
-        } elseif (end($expect) ==  $char) {
+        } elseif (end($expect) ==  $char) { // If it is an expected character, remove that character from the array.
             $sequence .= $char;
             array_pop($expect);
-        } else {
+        } else { // Otherwise the character is illegal. Update the score & move to the next line
             echo "\n";
             var_dump("Illegal Char!");
             var_dump($sequence);
